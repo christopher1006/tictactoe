@@ -1,4 +1,3 @@
-# TODO Function - take player input
 def takePlayerInput():
     print("Select column: ")
     col = input()
@@ -7,7 +6,17 @@ def takePlayerInput():
     row = input()
     return col, row
 
-def checkGameOver():
+def checkGameOver(Board, pOneSymbol, pTwoSymbol):
+    pOne = ord(pOneSymbol)
+    pTwo = ord(pTwoSymbol)
+
+    for row in range(0, 3):
+        # Currently just prints board
+        # TODO Go through each row FIRST to check for non-zero value. Only check 'col' if True
+        for col in range(0, 3):
+            print(Board[row][col], end="")
+        print("")
+    
     print("reached checkGameOver")
     return True
 
@@ -18,8 +27,10 @@ Board = [   ['.', '.', '.'],
             ['.', '.', '.'],
             ['.', '.', '.']]
 
-# Allow shape choice for player one.
+# Allow shape choice for player one. Defines playpiece token
 
+
+# TODO Ensure that input is only one character for each play piece.
 print("What shape is player 1?\n")
 playerChoice = input()
 playerOneShape = playerChoice
@@ -32,20 +43,18 @@ playerTwoShape = playerChoice
 isGameOver = False
 playerOneTurn = True
 
-while (isGameOver is False):
+while (isGameOver is False): # Initiate game loop
 
-    if playerOneTurn is True:
+    if playerOneTurn is True: #Players select their next placement
         print("Player 1")
-        col, row = takePlayerInput()
-        Board[col][row] = playerOneShape
-    elif playerOneTurn is False:
-        print("Player 1")
-        col, row = takePlayerInput()
-        Board[col][row] = playerTwoShape
+        col, row = takePlayerInput() #TODO Ensure valid number entry
+        Board[int(col)][int(row)] = playerOneShape
     else:
-        print ("Error bA31")
+        print("Player 2")
+        col, row = takePlayerInput()
+        Board[int(col)][int(row)] = playerTwoShape
 
-    isGameOver = checkGameOver()
+    isGameOver = checkGameOver(Board, playerOneShape, playerTwoShape)
 
 print("Game is over. Goodbye")
 
