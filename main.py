@@ -9,6 +9,8 @@ def takePlayerInput():
 def checkGameOver(Board, pOneSymbol, pTwoSymbol):
     pOne = ord(pOneSymbol)
     pTwo = ord(pTwoSymbol)
+    winOne = pOne*3
+    winTwo = pTwo*3
 
     for row in range(0, 3):
         # Currently just prints board
@@ -16,10 +18,37 @@ def checkGameOver(Board, pOneSymbol, pTwoSymbol):
         for col in range(0, 3):
             print(Board[row][col], end="")
         print("")
-    
-    print("reached checkGameOver")
-    return True
 
+    playerSum = 0
+    for row in range(0,3): #Check rows for horizontal victory
+        if ord(Board[row][0]) is pOne or ord(Board[row][0]) is pTwo:
+            print("player piece on first row")
+            playerSum += ord(Board[row][0])
+        elif ord(Board[row][1]) is pOne or ord(Board[row][1]) is pTwo:
+            print("player piece on second row")
+            playerSum += ord(Board[row][1])            
+        elif ord(Board[row][2]) is pOne or ord(Board[row][2]) is pTwo:
+            print("player piece on third row")
+            playerSum += ord(Board[row][2])
+
+        print("-----------DEBUG BLOCK-----------")
+        print("playerSum = " + str(playerSum))
+        print("pOne = " + str(pOne))
+        print("pTwo = " + str(pTwo))
+        print("Board[row][0] = " + str(ord(Board[row][0])))
+        print("Board[row][1] = " + str(ord(Board[row][1])))
+        print("Board[row][2] = " + str(ord(Board[row][2])))
+        print("-----------DEBUG BLOCK-----------")
+
+        if playerSum is winOne:
+            print("Player 1 wins!")
+            return True
+        elif playerSum is winTwo:
+            print("Player 2 wins!")
+            return True
+        else:
+            print("No winner yet, keep going!")
+            return False
 
 # Define game board
 
